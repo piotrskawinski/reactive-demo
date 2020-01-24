@@ -13,7 +13,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 @Slf4j
 @RequiredArgsConstructor
-public class Application implements CommandLineRunner {
+public class BackendApplication implements CommandLineRunner {
 
     private final CustomerService customerService;
     private final AccountService accountService;
@@ -21,7 +21,7 @@ public class Application implements CommandLineRunner {
     private final PensionService pensionService;
 
     public static void main(String[] args) {
-        SpringApplication.run(Application.class, args);
+        SpringApplication.run(BackendApplication.class, args);
     }
 
     @Override

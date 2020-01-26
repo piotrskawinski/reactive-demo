@@ -16,19 +16,13 @@ import reactor.core.publisher.Mono;
 public class AgreementController {
 
     private final AgreementService agreementService;
-
-    /*@GetMapping(path = "/agreements", produces = MediaType.APPLICATION_STREAM_JSON_VALUE)
-    public Flux<InsurancePolicy> getEventsStream() {
-        log.info("-> GET /events");
-
-        return Flux.interval(Duration.ofSeconds(1))
-                .takeWhile(i -> i <= NUMBER_OF_MESSAGES)
-                .map(InsurancePolicy::newPolicy);
-    }*/
+    private static long numberOfRequests;
 
     @GetMapping(path = "/agreements/{customer_no}", produces = MediaType.APPLICATION_JSON_VALUE)
     public Mono<Agreements> getAgreements(@PathVariable("customer_no") Long customerNo) {
         log.info("-> GET /agreements/" + customerNo);
+
+        // log.info("Request number {}", numberOfRequests++);
 
         return agreementService.getAgreements(customerNo);
     }

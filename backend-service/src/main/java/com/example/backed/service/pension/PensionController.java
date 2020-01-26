@@ -18,10 +18,13 @@ import java.util.List;
 @RequiredArgsConstructor
 public class PensionController {
 
+    private static Long numberOfRequests = 0L;
+
     private final PensionService pensionService;
 
     @GetMapping(path = "/pension/policies/{customer_no}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<PensionPolicy>> getPensionPolicies(@PathVariable("customer_no") Long customerNo) {
+        log.info("Pension request number {}", numberOfRequests++);
         DelaySimulator.simulate(500);
         return ResponseEntity.ok(pensionService.getPolicies(customerNo));
     }

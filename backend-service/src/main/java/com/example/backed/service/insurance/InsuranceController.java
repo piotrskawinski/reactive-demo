@@ -19,9 +19,11 @@ import java.util.List;
 public class InsuranceController {
 
     private final InsuranceService insuranceService;
+    private static long numberOfRequests;
 
     @GetMapping(path = "/insurance/policies/{customer_no}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<InsurancePolicy>> getInsurancePolicies(@PathVariable("customer_no") Long customerNo) {
+        log.info("Insurance request number {}", numberOfRequests++);
         DelaySimulator.simulate(500);
         return ResponseEntity.ok(insuranceService.getPolicies(customerNo));
     }

@@ -12,12 +12,12 @@ public class AsyncDemo extends AbstractDemo implements Demo {
     public void run() {
         getFlux("/customers", MediaType.APPLICATION_JSON, Customer.class)
                 // .log()
-                .take(100)
+                .take(5000)
                 .flatMap(id ->
                         getMono("/agreements/" + id.getCustomerNo(), MediaType.APPLICATION_JSON, Agreements.class)
                 )
                 // .log()
-                .subscribe(o -> log.info("{} - Customer '{}' has {} agreements", currentThread(), o.getCustomerNo(), o.totalAgreements()));
+                .subscribe(o -> log.info("Customer '{}' has {} agreements", o.getCustomerNo(), o.totalAgreements()));
 
     }
 

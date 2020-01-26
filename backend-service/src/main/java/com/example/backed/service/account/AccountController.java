@@ -19,10 +19,13 @@ import java.util.List;
 public class AccountController {
 
     private final AccountService accountService;
+    private static long numberOfRequests;
 
     @GetMapping(path = "/bank/accounts/{customer_no}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<BankAccount>> getAccount(@PathVariable("customer_no") Long customerNo) {
         DelaySimulator.simulate(500);
+        log.info("Account request number {}", numberOfRequests++);
+
         return ResponseEntity.ok(accountService.getAccounts(customerNo));
     }
 
